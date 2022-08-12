@@ -19,6 +19,7 @@ class BookStore {
 
     if (!map.containsKey(this._bookName)) {
       map[this._bookName] = [this._bookAuthor, this._bookRate];
+      print('${this._bookName} has been added successfully');
     } else {
       print('Books names should be unique');
     }
@@ -131,7 +132,6 @@ class BookStore {
         if ([name, author, rate].every((val) => !val.isEmpty)) {
           BookStore new_book = BookStore(
               bookName: name, bookAuthor: author, bookRate: double.parse(rate));
-          print('${new_book.bookName} has been added successfully');
         } else {
           print('Adding proccess failed because of some empty values...');
           break;
