@@ -1,7 +1,7 @@
 import "dart:io";
 
 class BookStore {
-  static Map map = {};
+  static Map allBooks = {};
   late String _bookName;
   late String _bookAuthor;
   late double _bookRate;
@@ -17,8 +17,8 @@ class BookStore {
     /* Each time we make a new object , it's attributes will be stored in this map with 
     a unique keys to prevent duplicates */
 
-    if (!map.containsKey(this._bookName)) {
-      map[this._bookName] = [this._bookAuthor, this._bookRate];
+    if (!allBooks.containsKey(this._bookName)) {
+      allBooks[this._bookName] = [this._bookAuthor, this._bookRate];
       print('${this._bookName} has been added successfully');
     } else {
       print('Books names should be unique');
@@ -105,7 +105,7 @@ class BookStore {
   }
 
   static void displayAllBooks() {
-    reprOutput(map);
+    reprOutput(allBooks);
   }
 
   static void addBook() {
@@ -145,8 +145,8 @@ class BookStore {
   }
 
   static void displayBooksWithHigherRate() {
-    Map filtered = Map.fromIterable(map.keys.where((k) => map[k][1] >= 4),
-        key: (k) => k, value: (k) => map[k]);
+    Map filtered = Map.fromIterable(allBooks.keys.where((k) => allBooks[k][1] >= 4),
+        key: (k) => k, value: (k) => allBooks[k]);
 
     reprOutput(filtered);
   }
@@ -155,8 +155,8 @@ class BookStore {
     stdout.write("Enter book name to delete : ");
     String toDelete = stdin.readLineSync()!;
     if (!toDelete.isEmpty) {
-      if (map.containsKey(toDelete)) {
-        map.remove(toDelete);
+      if (allBooks.containsKey(toDelete)) {
+        allBooks.remove(toDelete);
         print('${toDelete} has been deleted');
       } else {
         print('No such book named ${toDelete},please try again...');
@@ -178,10 +178,10 @@ class BookStore {
       stdout.write("Enter new book rate : ");
       String new_rate = stdin.readLineSync()!;
 
-      if (map.containsKey(old_name)) {
+      if (allBooks.containsKey(old_name)) {
         if ([new_name, new_author, new_rate].every((val) => !val.isEmpty)) {
-          map.remove(old_name);
-          map[new_name] = [new_author, new_rate];
+          allBooks.remove(old_name);
+          allBooks[new_name] = [new_author, new_rate];
         } else {
           print('Updating proccess failed becauese of some empty values...');
         }
@@ -199,9 +199,9 @@ class BookStore {
       String toFind = stdin.readLineSync()!;
 
       Map query = Map.fromIterable(
-          map.keys.where((k) => k.toString().contains(toFind)),
+          allBooks.keys.where((k) => k.toString().contains(toFind)),
           key: (k) => k,
-          value: (k) => map[k]);
+          value: (k) => allBooks[k]);
 
       reprOutput(query);
     } on Exception {
