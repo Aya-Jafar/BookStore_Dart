@@ -55,7 +55,7 @@ class BookStore {
         if (choice == 7) {
           stdout.write('Are you sure you want to quit? Y/N\n');
           String choice2 = stdin.readLineSync()!;
-          if (choice2 == 'Y'.trim() || choice2 == 'y'.trim()) {
+          if (choice2.trim() == 'Y' || choice2.trim() == 'y') {
             print('Goodbye 👋');
             break;
           }
